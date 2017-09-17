@@ -1,0 +1,22 @@
+{
+  "name": "user-comments",
+  "version": "1.0.0",
+  "description": "widget to refer to a user within a comment block",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack && webpack-dev-server --open"
+  },
+  "author": "Brittany Starr",
+  "license": "ISC",
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
+    "express": "^4.15.4",
+    "jquery": "^3.2.1",
+    "webpack": "^3.6.0",
+    "webpack-dev-server": "^2.8.2",
+    "webpack-hot-middleware": "^2.19.1"
+  }
+}
