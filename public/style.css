@@ -6,3 +6,33 @@ body {
   display: flex;
   justify-content: center;
 }
+
+#widget {
+  border: 1px solid;
+  width: 250px;
+  max-height: 150px;
+  overflow: scroll;
+  margin: 0 auto;
+  position: relative;
+}
+
+.result-item {
+  height: 50px;
+  border: 1px solid;
+  margin: 0;
+}
+
+.result-item:hover {
+  background: yellow;
+}
+
+.result-item p {
+  display: inline-block;
+  vertical-align: middle;
+  position: absolute;
+  padding-left: 20px;
+}
+
+.result-img {
+  width: 50px;
+}
