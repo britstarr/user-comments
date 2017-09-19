@@ -1,2 +1,2 @@
 import './modules/comment_block.js';
-import './modules/result.js';
+import './modules/user_widget.js';
