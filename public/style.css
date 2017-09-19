@@ -7,6 +7,24 @@ body {
   justify-content: center;
 }
 
+.text-highlight {
+  position: absolute;
+  top: 5px;
+  background-color: #D8DFEA;
+  width: 53px;
+  height: 12px;
+  z-index: -3;
+  display: none;
+}
+
+.comment-block {
+  width: 300px;
+  height: 200px;
+  border: 1px solid #ddd;
+  background: transparent;
+  font-size: 12px;
+}
+
 #widget {
   border: 1px solid;
   width: 250px;
@@ -21,6 +39,7 @@ body {
   height: 50px;
   border: 1px solid;
   margin: 0;
+  cursor: pointer;
 }
 
 .result-item:hover {
