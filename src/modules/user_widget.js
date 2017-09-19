@@ -28,8 +28,10 @@ class UserWidget {
     user = $(item).children('.result-user')[0].textContent;
     //append to the comment box
     $('.comment-block').val((i, value) => {
-        return `${value} ${user} `;
+      return `${value} ${user} `;
     });
+    $('#widget').hide();
+    $(document).trigger('resetSearch');
   }
   
   createItem(users) {

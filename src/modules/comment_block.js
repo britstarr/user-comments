@@ -5,7 +5,10 @@ import util from 'util';
 class CommentBlock {
   constructor(block) {
     this.$commentBlock = $(block);
-    this.state = {};
+    this.state = {
+      search: false,
+      searchString: ''
+    };
     
     this.getData();    
     this.attachListeners();
@@ -15,9 +18,15 @@ class CommentBlock {
     this.$commentBlock.keypress(event => {
       const {target} = event;
       window.elem = target;
-      target.textLength > 2 
+      event.keyCode === 64
         ? this.handleInput(target.value, target.textLength) 
-        : null; 
+        : this.trackTag(event.keyCode) ; 
+    });
+    
+    $(document).on('resetSearch', () => {
+      this.setState({
+        search: false
+      });
     });
   }
   
@@ -31,10 +40,37 @@ class CommentBlock {
     .catch(err => console.log(`error in getData \n ${err}`));
   }
   
+  trackTag(charCode) {
+    //check if we're searching, if so, keep track of what's being typed
+    const char = String.fromCharCode(charCode);
+    let {searchString} =  this.state;
+    let updatedSearchString,
+        charLength;
+        
+    if (this.state.search) {
+      updatedSearchString = searchString += char; 
+      charLength = updatedSearchString.length;
+      
+      this.setState({
+        searchString: updatedSearchString
+      });
+      
+      this.handleInput(updatedSearchString, charLength);
+    }
+  }
+  
+  checkSearchStatus() {
+    this.state
+    this.setState({search: true})
+  }
+  
   handleInput(input, chars) {
+    //set the options to search
+    console.log('input', input, 'chars', chars)
     this.setState({
-      findUsers: true
+      search: true
     });
+    
     const {data} = this.state;
     input = input.toLowerCase();
     // reset the matches array if user continues to type
