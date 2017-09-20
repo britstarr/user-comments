@@ -12,6 +12,10 @@ class UserWidget {
     $(document).on('newMatches', (e, newMatches) => {
       this.createItem(newMatches);
     });
+    
+    $(document).on('noMatches', (e, newMatches) => {
+      $('#widget').hide();
+    });
   }
   
   attachItemListeners(selector) {
@@ -28,15 +32,25 @@ class UserWidget {
     }
     //get user's name
     user = $(item).children('.result-user')[0].textContent;
+    
     //append to the comment box
     $('.comment-block').val((i, value) => {
-      return `${value} ${user} `;
+      //filter out the @ and attach the user's name to the text
+      let filter = value.split('@')
+      filter.splice(filter.length - 1, 1, user);
+      return filter.join('');
     });
     $('#widget').hide();
     $(document).trigger('resetSearch');
   }
   
   createItem(users) {
+    //hide the widget if there are no longer matches
+    if (!users) {
+      $('#widget').hide();
+      return;
+    }
+
     //remove previous results
     $('#widget').empty();
     
@@ -51,6 +65,7 @@ class UserWidget {
     
     this.attachItemListeners('.result-item');
     $('#widget').show();
+    $('#widget').css('display', 'inline-block');
   }
   
   setState(addToState) {
