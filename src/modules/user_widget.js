@@ -8,7 +8,6 @@ class UserWidget {
   }
   
   attachInitialListeners() {
-    //listeners required to create results
     $(document).on('newMatches', (e, newMatches) => {
       this.createItem(newMatches);
     });
@@ -19,7 +18,7 @@ class UserWidget {
   }
   
   attachItemListeners(selector) {
-    //once results exist, add listeners to them
+    //listeners to be created once result items exist
     $(selector).click(e => this.addToComment(e));
   }
   
@@ -41,7 +40,8 @@ class UserWidget {
       return filter.join('');
     });
     $('#widget').hide();
-    $(document).trigger('resetSearch');
+    //emit event once the result is added to comment and this search is completed
+    $(document).trigger('searchCompleted');
   }
   
   createItem(users) {

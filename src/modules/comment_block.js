@@ -71,9 +71,17 @@ class CommentBlock {
         searchString
       });
       this.handleSearchText(searchString, count);
-    } else {
+    } else if (searchString.length === 1){
       //reset search related state items
       this.setState({
+        matches: [],
+        count: 0,
+        searchString: ''
+      });
+      this.emptyWidget();
+    } else {
+      this.setState({
+        search: false,
         matches: [],
         count: 0,
         searchString: ''
@@ -84,7 +92,7 @@ class CommentBlock {
   
   handleSearchText(input, chars) {
     let {data} = this.state;
-    let match = false; //i
+    let match = false;
     input = input.toLowerCase();
     // reset the matches array if user continues to type    
     this.setState({
