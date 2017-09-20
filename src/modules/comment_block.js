@@ -7,7 +7,8 @@ class CommentBlock {
     this.$commentBlock = $(block);
     this.state = {
       search: false,
-      searchString: ''
+      searchString: '',
+      count: 0
     };
     
     this.getData();    
@@ -17,9 +18,8 @@ class CommentBlock {
   attachListeners() {
     this.$commentBlock.keypress(event => {
       const {target} = event;
-      window.elem = target;
       event.keyCode === 64
-        ? this.handleInput(target.value, target.textLength) 
+        ? this.setSearchStatus(target.value, target.textLength) 
         : this.trackTag(event.keyCode) ; 
     });
     
@@ -40,40 +40,39 @@ class CommentBlock {
     .catch(err => console.log(`error in getData \n ${err}`));
   }
   
-  trackTag(charCode) {
-    //check if we're searching, if so, keep track of what's being typed
+  trackTag(charCode) {  
     const char = String.fromCharCode(charCode);
     let {searchString} =  this.state;
     let updatedSearchString,
         charLength;
-        
+    
+    //check if we're searching, if so, keep track of what's being typed
     if (this.state.search) {
       updatedSearchString = searchString += char; 
       charLength = updatedSearchString.length;
       
       this.setState({
-        searchString: updatedSearchString
+        searchString: updatedSearchString,
+        count: this.state.count += 1
       });
-      
+
       this.handleInput(updatedSearchString, charLength);
     }
   }
   
-  checkSearchStatus() {
-    this.state
-    this.setState({search: true})
+  setSearchStatus(input, chars) {
+    //to start a new search, set search state to true and clear the search string and character count
+    this.setState({
+      search: true,
+      searchString: '',
+      count: 0
+    });
   }
   
-  handleInput(input, chars) {
-    //set the options to search
-    console.log('input', input, 'chars', chars)
-    this.setState({
-      search: true
-    });
-    
-    const {data} = this.state;
+  handleInput(input, chars, three) {
+    let {data} = this.state;
     input = input.toLowerCase();
-    // reset the matches array if user continues to type
+    // reset the matches array if user continues to type    
     this.setState({
       matches: []
     });
@@ -100,6 +99,7 @@ class CommentBlock {
   }
 }
 
+//on load, create an instance of the CommentBlock class
 document.addEventListener('DOMContentLoaded', ()=> {
   const block = new CommentBlock('.comment-block');
 });

@@ -8,6 +8,7 @@ class UserWidget {
   }
   
   attachInitialListeners() {
+    //listeners required to create results
     $(document).on('newMatches', (e, newMatches) => {
       this.createItem(newMatches);
     });
@@ -21,6 +22,7 @@ class UserWidget {
   addToComment(event) {
     let item = $(event.target);
     let user;
+    //make sure item is a .result-item, rather than a child of it
     if (item[0].className && item[0].className !== 'result-item') {
       item = $(item).parent('.result-item')[0];
     }
@@ -56,6 +58,7 @@ class UserWidget {
   }
 }
 
+//on load, create an instance of the UserWidget class
 document.addEventListener('DOMContentLoaded', ()=> {
   const widget = new UserWidget('#widget');
 });
